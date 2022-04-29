@@ -1,9 +1,0 @@
-config BR2_PACKAGE_PP_BASE
-	bool "pp-base"
-        help
-          install base PPOS prerequisites
-           - Raspberry Pi firmware
-        select BR2_PACKAGE_NTP
-	select BR2_PACKAGE_NTP_NTPD
-	select BR2_PACKAGE_NTP_NTPDATE
-	select BR2_PACKAGE_NTP_NTPTIME

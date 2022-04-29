@@ -1,0 +1,11 @@
+config BR2_PACKAGE_PP_DMDREADER
+        bool "pp-dmdreader"
+        help
+          "DMDReader reads data from a DMD
+	select BR2_PACKAGE_BOOST
+ 	select BR2_PACKAGE_BOOST_LOG
+	select BR2_PACKAGE_BOOST_SYSTEM
+	select BR2_PACKAGE_BOOST_IOSTREAMS
+	select BR2_PACKAGE_LIBDRM
+	select BR2_PACKAGE_SDL2
+	select BR2_PACKAGE_SDL2_OPENGLES

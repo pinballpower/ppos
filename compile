@@ -1,0 +1,64 @@
+#!/bin/bash
+if [ "$BRSRCDIR" == "" ]; then
+ BRSRCDIR=buildroot
+fi
+
+MYDIR=`pwd`
+TS=`date +%Y%m%d`
+echo $TS > VERSION
+
+if [ "$1" == "" ]; then
+ VERSION=`cat .piversion`
+ echo No version given, assuming Pi$VERSION
+else
+ VERSION=$1
+fi
+
+KNOWNVERSION=`echo "3 4" | grep $VERSION`
+if [ "$KNOWNVERSION" == "" ]; then
+ echo "Unsupported version $VERSION, aborting"
+ exit 1
+fi
+
+BRDIR=`./brdir $VERSION`
+echo "Building in $BRDIR"
+
+if [ -f $MYDIR/notify ]; then
+ $MYDIR/notify begin
+fi
+
+# Remove some packages
+if [ "$2" != "" ]; then
+ echo Removing $BRDIR/build/$2*  $BRDIR/build/host-$2*
+ rm -rf $BRDIR/build/$2*  $BRDIR/build/host-$2* $BRDIR/per-package/$2*
+fi
+
+if [ "$3" != "" ]; then
+ echo Removing $BRDIR/build/$3*  $BRDIR/build/host-$3*
+ rm -rf $BRDIR/build/$3*  $BRDIR/build/host-$3* $BRDIR/per-package/$3*
+fi
+
+
+cd $BRSRCDIR
+mkdir -p $BRDIR/target/etc
+echo $VERSION > $BRDIR/target/etc/piversion
+
+make O=$BRDIR BR2_EXTERNAL=../brext olddefconfig
+
+# Check if parallel build are supported
+PARALLEL=`cat $BRDIR/.config | grep "BR2_PER_PACKAGE_DIRECTORIES=y"`
+if [ "$NOPARALLEL" != "" ]; then
+ PARALLEL=""
+fi
+if [ "$PARALLEL" == "" ]; then
+ echo "Using standard (non package-parallel) build system"
+ make O=$BRDIR BR2_EXTERNAL=../brext
+else
+ JOBS=`cat /proc/cpuinfo  | grep ^processor | wc -l`
+ echo "Using new package-parallel build with $JOBS parallel jobs"
+ make -j$JOBS O=$BRDIR BR2_EXTERNAL=../brext
+fi
+
+if [ -f $MYDIR/notify ]; then
+ $MYDIR/notify finish
+fi

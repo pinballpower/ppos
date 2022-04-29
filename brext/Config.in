@@ -1,0 +1,10 @@
+comment "Base packages"
+source "$BR2_EXTERNAL_PPOS_PATH/package/pp-base/Config.in"
+source "$BR2_EXTERNAL_PPOS_PATH/package/pp-tools/Config.in"
+source "$BR2_EXTERNAL_PPOS_PATH/package/pp-updater/Config.in"
+source "$BR2_EXTERNAL_PPOS_PATH/package/configtxt/Config.in"
+source "$BR2_EXTERNAL_PPOS_PATH/package/pp-systemd/Config.in"
+source "$BR2_EXTERNAL_PPOS_PATH/package/enable-vc4kms/Config.in"
+
+comment "Tools"
+source "$BR2_EXTERNAL_PPOS_PATH/package/pp-dmdreader/Config.in"

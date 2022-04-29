@@ -1,0 +1,46 @@
+#!/bin/bash
+if [ "$1" == "" ]; then 
+        TAG=2022.02
+else
+	TAG=$1
+fi
+
+cd `dirname $0`
+
+BRDIR=buildroot-${TAG}
+
+cd `dirname $0`
+
+if [ -d $BRDIR ]; then
+	echo "Saving current buildroot"
+	rm -rf $BRDIR.bak
+	mv $BRDIR $BRDIR.bak
+fi
+
+echo "Checking out buildoot tag ${TAG} from Github"
+git clone https://github.com/buildroot/buildroot $BRDIR
+
+echo "Checking out a known-good release"
+pushd $BRDIR
+git checkout $TAG
+
+if [ -f ../brext/buildroot-${TAG}.patch ]; then
+	echo "Applying patch"
+	patch -p1 < ../brext/buildroot-${TAG}.patch
+else	
+	ls ../bext/buildroot-${TAG}.patch
+	echo "No patch found - is this correct?"
+fi
+popd
+
+echo "Copying genimage configurations"
+if [ -f brext/board ]; then
+        cp -v brext/board/raspberrypi/genimage*cfg $BRDIR/board/raspberrypi
+else 
+        echo "Nothing there"
+fi
+
+echo "Symlinking to buildroot"
+rm buildroot
+ln -s $BRDIR buildroot
+

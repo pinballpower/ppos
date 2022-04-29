@@ -3,7 +3,7 @@
 cd `dirname $0`
 
 if [ "$1" == "" ]; then
- VERSION=`cat .piversion`
+ VERSION=4
  echo No version given, assuming Pi$VERSION
 else
  VERSION=$1

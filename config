@@ -19,6 +19,7 @@ BRDIR=`./brdir $PIVERSION`
 echo "Configuring in $BRDIR"
 cd `dirname $0`
 cd $BRSRCDIR
-cp $MYDIR/configs/pi$PIVERSION-$CONFIG.config .config
+echo "Using $MYDIR/configs/pi$PIVERSION-$CONFIG.config"
+cp $MYDIR/configs/pi$PIVERSION-$CONFIG.config $BRDIR/.config
 make O=$BRDIR BR2_EXTERNAL=../brext menuconfig
-cp .config $MYDIR/configs/pi$PIVERSION-$CONFIG.config
+cp $BRDIR/.config $MYDIR/configs/pi$PIVERSION-$CONFIG.config

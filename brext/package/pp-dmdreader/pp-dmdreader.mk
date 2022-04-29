@@ -11,7 +11,8 @@ PP_DMDREADER_DEPENDENCIES = host-pkgconf boost libdrm sdl2 mesa3d
 
 PP_DMDREADER_CONF_OPTS += \
         -DCMAKE_BUILD_TYPE=Release \
-        -DENABLE_BOOST_STATIC_LIBS=OFF
+        -DENABLE_BOOST_STATIC_LIBS=OFF \
+	-DRPI=1
 
 define PP_DMDREADER_INSTALL_CONF
 endef

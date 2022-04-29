@@ -1,20 +1,24 @@
 #!/bin/bash
 
 cd `dirname $0`
+MYDIR=`pwd`
 
-if [ "$1" == "" ]; then
- VERSION=`cat .piversion`
- echo No version given, assuming Pi$VERSION
-else
- VERSION=$1
+# Only Pi4 supported today
+PIVERSION=4
+
+CONFIG=$1
+if [ "$CONFIG" == "" ]; then
+  CONFIG="default"
 fi
 
 if [ "$BRSRCDIR" == "" ]; then
- BRSRCDIR=buildroot
+  BRSRCDIR=buildroot
 fi
 
-BRDIR=`./brdir $VERSION`
+BRDIR=`./brdir $PIVERSION`
 echo "Configuring in $BRDIR"
 cd `dirname $0`
 cd $BRSRCDIR
+cp $MYDIR/configs/pi$PIVERSION-$CONFIG.config .config
 make O=$BRDIR BR2_EXTERNAL=../brext menuconfig
+cp .config $MYDIR/configs/pi$PIVERSION-$CONFIG.config

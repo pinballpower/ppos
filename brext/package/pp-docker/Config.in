@@ -1,0 +1,9 @@
+config BR2_PACKAGE_PP_DOCKER
+	bool "docker stuff"
+        help
+          add docker and some configs
+	select BR2_PACKAGE_DOCKER_ENGINE
+	select BR2_PACKAGE_DOCKER_ENGINE_DAEMON
+	select BR2_PACKAGE_DOCKER_COMPOSE
+	select BR2_PACKAGE_DOCKER_CONTAINERD
+	

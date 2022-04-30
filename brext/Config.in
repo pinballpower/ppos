@@ -1,8 +1,7 @@
-comment "Base packages"
+comment "Pinball Power OS packages"
 source "$BR2_EXTERNAL_PPOS_PATH/package/pp-tools/Config.in"
 source "$BR2_EXTERNAL_PPOS_PATH/package/pp-updater/Config.in"
 source "$BR2_EXTERNAL_PPOS_PATH/package/configtxt/Config.in"
 source "$BR2_EXTERNAL_PPOS_PATH/package/pp-systemd/Config.in"
-
-comment "Tools"
 source "$BR2_EXTERNAL_PPOS_PATH/package/pp-dmdreader/Config.in"
+source "$BR2_EXTERNAL_PPOS_PATH/package/pp-docker/Config.in"

@@ -1,0 +1,28 @@
+#!/bin/bash
+cd `dirname $0`
+
+VERSION=4
+
+BRDIR=`./brdir $VERSION`
+echo "Building updater from $BRDIR"
+
+if [ "$2" != "" ]; then
+  echo "Using timestamp $2"
+  TS=$2
+else
+  TS=`date +%Y%m%d`
+fi
+
+cd `dirname $0`
+MYDIR=`pwd`
+TMPDIR=/tmp/$$
+mkdir $TMPDIR
+cp $BRDIR/images/Image $BRDIR/images/rootfs.* $TMPDIR
+pushd $TMPDIR
+ls $TMPDIR
+pwd
+ls
+cp $MYDIR/brext/updater.sh .
+zip $MYDIR/images/updater-$TS-pi$VERSION.zip Image rootfs.ext2
+popd
+rm -rf $TMPDIR

@@ -10,6 +10,10 @@ CONFIG=$1
 if [ "$CONFIG" == "" ]; then
   CONFIG="default"
 fi
+if [ "$CONFIG" == "4" ]; then
+ echo "Do not use Pi version, it is fixed to 4"
+ exit 1
+fi
 
 if [ "$BRSRCDIR" == "" ]; then
   BRSRCDIR=buildroot

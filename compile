@@ -5,7 +5,7 @@ fi
 
 MYDIR=`pwd`
 TS=`date +%Y%m%d`
-echo $TS > VERSION
+echo $TS > brext/VERSION
 
 if [ "$1" == "" ]; then
  VERSION=4

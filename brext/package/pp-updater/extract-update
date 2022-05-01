@@ -1,5 +1,14 @@
 #!/bin/bash
 
+if [ ! -f /boot/config.txt ]; then
+ BOOTMNT=`grep /boot /etc/fstab`
+ if [ "$BOOTMNT" == "" ]; then
+  echo "/dev/mmcblk0p1    /boot    vfat    dmask=000,fmask=111  0   0" >> /etc/fstab
+ fi
+ mount /boot
+fi
+
+
 if [ -f /data/updater.zip ]; then
  UPDATER=/data/updater.zip
  ISTAR=0
@@ -69,14 +78,16 @@ else
  if [ "$ISTAR" == "1" ]; then
   gunzip -c $UPDATER | tar xf - zImage updater.sh updater2.sh
  else
-   unzip $UPDATER  zImage updater.sh updater2.sh
+   unzip $UPDATER  zImage Image updater.sh updater2.sh
  fi
- if [ ! -f zImage ]; then
+ if [ ! -f zImage ] && [ ! -f Image ] ; then
   echo "Could not find new kernel, aborting ..."
   exit 1
  else
   cp /boot/zImage /boot/zImage.bak
+  cp /boot/Image /boot/Image.bak
   mv zImage /boot/zImage 2>/dev/null
+  mv Image /boot/Image  2>/dev/null
  fi
 fi
 echo "migrating SSH host keys..."

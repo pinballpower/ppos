@@ -13,7 +13,5 @@
 /etc/machine-id
 /etc/updater.release
 /root/.ssh
-/etc/smbmounts.conf
 /root/.bash_history
-/etc/xdg/weston/weston.ini
 /custom

@@ -30,6 +30,19 @@ define PP_UPDATER_INSTALL_TARGET_CMDS
 	echo "Installing updater"
 	$(INSTALL) -D -m 755 $(BR2_EXTERNAL_PPOS_PATH)/updater.sh $(TARGET_DIR)/tmp/updater.sh
 
+	# Partition resizing and /data
+	$(INSTALL) -D -m 0755 $(BR2_EXTERNAL_PPOS_PATH)/package/pp-tools/resize-partitions \
+                $(TARGET_DIR)/opt/ppos/bin
+	$(INSTALL) -D -m 0755 $(BR2_EXTERNAL_PPOS_PATH)/package/pp-tools/activate-data-partition \
+                $(TARGET_DIR)/opt/ppos/bin
+
+endef
+
+define PP_UPDATER_INSTALL_INIT_SYSTEMD
+        $(INSTALL) -D -m 0644 $(BR2_EXTERNAL_PPOS_PATH)/package/pp-updater/resize-partitions.service \
+                $(TARGET_DIR)/usr/lib/systemd/system/resize-partitions.service
+        $(INSTALL) -D -m 0644 $(BR2_EXTERNAL_PPOS_PATH)/package/pp-updater/activate-data-partition.service \
+                $(TARGET_DIR)/usr/lib/systemd/system/activate-data-partition.service
 endef
 
 $(eval $(generic-package))

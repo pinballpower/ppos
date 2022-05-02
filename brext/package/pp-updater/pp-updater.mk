@@ -19,7 +19,7 @@ define PP_UPDATER_INSTALL_TARGET_CMDS
                 $(TARGET_DIR)/opt/ppos/bin
         $(INSTALL) -D -m 0755 $(BR2_EXTERNAL_PPOS_PATH)/package/pp-updater/restore-config \
                 $(TARGET_DIR)/opt/ppos/bin
-        $(INSTALL) -D -m 0444 $(BR2_EXTERNAL_PPOS_PATH)/../VERSION \
+        $(INSTALL) -D -m 0444 $(BR2_EXTERNAL_PPOS_PATH)/VERSION \
                 $(TARGET_DIR)/etc/ppos.version
         $(INSTALL) -D -m 0444 $(BR2_EXTERNAL_PPOS_PATH)/package/pp-updater/config-files \
                 $(TARGET_DIR)/opt/ppos/etc/config-files

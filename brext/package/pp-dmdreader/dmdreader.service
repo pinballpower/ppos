@@ -1,0 +1,12 @@
+[Unit]
+Description=Activate /data
+After=boot.mount local-fs.target dev-dri-card1.device
+Requires=dev-dri-card1.device
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/dmdreader
+StandardOutput=journal
+
+[Install]
+WantedBy=multi-user.target

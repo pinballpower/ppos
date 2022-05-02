@@ -18,6 +18,8 @@ define PP_DMDREADER_INSTALL_CONF
 endef
 
 define PP_DMDREADER_INSTALL_INIT_SYSTEMD
+ $(INSTALL) -D -m 0644 $(BR2_EXTERNAL_PPOS_PATH)/package/pp-dmdreader/dmdreader.service \
+                $(TARGET_DIR)/usr/lib/systemd/system/dmdreader.service
 endef
 
 PP_DMDREADER_POST_INSTALL_TARGET_HOOKS += PP_DMDREADER_INSTALL_CONF

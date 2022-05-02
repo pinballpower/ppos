@@ -12,6 +12,7 @@
 /etc/watchdog.conf
 /etc/machine-id
 /etc/updater.release
+/etc/dmdreader/dmdreader.json
 /root/.ssh
 /root/.bash_history
 /custom

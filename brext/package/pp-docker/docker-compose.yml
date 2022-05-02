@@ -1,0 +1,7 @@
+version: '2'
+services:
+  ubuntu-ssh:
+    image: rastasheep/ubuntu-sshd
+    ports:
+      - "2022:22"
+    network_mode: "host"

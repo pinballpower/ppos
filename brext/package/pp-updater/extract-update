@@ -69,25 +69,27 @@ fi
 VERSION=`cat /newroot/etc/ppos.version`
 
 echo "extracting new kernel..."
-if [ -f /newroot/usr/lib/firmware/rpi/zImage ]; then
+if [ -f /newroot/usr/lib/firmware/rpi/Image.gz ]; then
  echo "Using zImage from new RPI firmware"
- cp /boot/zImage /boot/zImage.bak
+ cp /boot/Image.gz /boot/Image.gz
  cp -rv /newroot/usr/lib/firmware/rpi/* /boot
 else
  cd /tmp
  if [ "$ISTAR" == "1" ]; then
-  gunzip -c $UPDATER | tar xf - zImage updater.sh updater2.sh
+  gunzip -c $UPDATER | tar xf - Image.gz updater.sh updater2.sh
  else
-   unzip $UPDATER  zImage Image updater.sh updater2.sh
+   unzip $UPDATER  zImage Image.gz Image updater.sh updater2.sh
  fi
- if [ ! -f zImage ] && [ ! -f Image ] ; then
+ if [ ! -f zImage ] && [ ! -f Image ] && [ ! -f Image.gz ]; then
   echo "Could not find new kernel, aborting ..."
   exit 1
  else
   cp /boot/zImage /boot/zImage.bak
   cp /boot/Image /boot/Image.bak
+  cp /boot/Image.gz /boot/Image.gz.bak
   mv zImage /boot/zImage 2>/dev/null
   mv Image /boot/Image  2>/dev/null
+  mv Image.gz /boot/Image.gz  2>/dev/null
  fi
 fi
 echo "migrating SSH host keys..."
